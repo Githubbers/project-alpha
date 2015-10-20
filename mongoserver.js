@@ -14,6 +14,8 @@ mongoose.connect('mongodb://' + process.env.IP + '/data', function(err, res) {
 
 var db = mongoose.connection;
 
+app.use(bodyParser.json());
+
 var pullSchema = new mongoose.Schema({
   action: "string",
   username: "string",
@@ -59,8 +61,8 @@ app.get('/display', function(req, res) {
   pullRequest.find( function(err, pr) {
     res.send(pr);
     res.end();
-  })
-})
+  });
+});
 
 app.get('/remove', function(req, res) {
   pullRequest.remove({}, function(err, docs) {
@@ -68,6 +70,25 @@ app.get('/remove', function(req, res) {
     res.end();
   });
  
+});
+
+app.post('/', function(req, res) {
+  new pullRequest({
+    action: req.body.action,
+    username: req.body.pull_request.user.login,
+    createdAt: req.body.pull_request.created_at,
+    closedAt: req.body.pull_request.closed_at,
+    title: req.body.pull_request.title
+  })
+  .save( function(err, doc) {
+    if (err) {
+      console.error(err);
+    }
+    else {
+      console.log(doc);
+    }
+    res.end();
+  });
 })
 
 var server = app.listen(process.env.PORT, process.env.IP, function() {
