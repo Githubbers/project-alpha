@@ -15,7 +15,7 @@ app.post('/', function (req, res) {
   console.log(Object.keys(req.body));
   var obj = req.body;
   jsonfile.writeFile(file, obj, function (err) {
-    console.error(err)
+    console.error(err);
   });
   res.status(200).send('hello world');
   res.end('ending');
