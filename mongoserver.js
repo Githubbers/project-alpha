@@ -16,13 +16,7 @@ var db = mongoose.connection;
 
 app.use(bodyParser.json());
 
-var pullSchema = new mongoose.Schema({
-  action: "string",
-  username: "string",
-  createdAt: "string",
-  closedAt: "string",
-  title: "string"
-});
+var pullSchema = new mongoose.Schema({..}, {strict: false});
 
 var pullRequest = mongoose.model('pullRequest', pullSchema);
 

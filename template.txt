@@ -1,0 +1,24 @@
+mongoDoc = {
+    
+    action: pull_request
+    id
+    title
+    
+    sender: {
+        id
+        username
+        repo_url
+        branch
+    }
+    
+    recipient: {
+        id
+        username
+        repo_url
+        branch
+    }
+    
+}
+
+satistiques pull request
+test

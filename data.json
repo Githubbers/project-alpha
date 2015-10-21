@@ -34,4 +34,40 @@
     "createdAt": "2015-10-20T00:08:06Z",
     "closedAt": "2015-10-20T00:08:14Z",
     "title": "Test number 2"
+}, {
+    "action": "opened",
+    "username": "guillaume-boutin",
+    "createdAt": "2015-10-20T22:27:59Z",
+    "closedAt": null,
+    "title": "Added yellowish verses to my poem."
+}, {
+    "action": "opened",
+    "username": "guillaume-boutin",
+    "createdAt": "2015-10-20T22:27:59Z",
+    "closedAt": null,
+    "title": "Added yellowish verses to my poem."
+}, {
+    "action": "reopened",
+    "username": "nk1tz",
+    "userAvatar": "https://avatars.githubusercontent.com/u/12980165?v=3",
+    "userRepoUrl": "https://api.github.com/repos/Githubbers/api-testing-repo/pulls/2",
+    "createdAt": "2015-10-20T23:01:14Z",
+    "closedAt": null,
+    "title": "Update poem.txt"
+}, {
+    "action": "closed",
+    "username": "nk1tz",
+    "userAvatar": "https://avatars.githubusercontent.com/u/12980165?v=3",
+    "userRepoUrl": "https://api.github.com/repos/Githubbers/api-testing-repo/pulls/2",
+    "createdAt": "2015-10-20T23:01:14Z",
+    "closedAt": "2015-10-20T23:05:44Z",
+    "title": "Update poem.txt"
+}, {
+    "action": "closed",
+    "username": "nk1tz",
+    "userAvatar": "https://avatars.githubusercontent.com/u/12980165?v=3",
+    "userRepoUrl": "https://api.github.com/repos/Githubbers/api-testing-repo/pulls/2",
+    "createdAt": "2015-10-20T23:01:14Z",
+    "closedAt": "2015-10-20T23:05:44Z",
+    "title": "Update poem.txt"
 }]

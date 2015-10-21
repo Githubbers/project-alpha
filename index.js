@@ -8,31 +8,44 @@ var jsonfile = require('jsonfile');
 var mongoose = require('mongoose');
 
 var file = 'data.json';
+var rawfile = 'rawData.json';
 
 app.use(bodyParser.json());
 
 app.post('/', function(req, res) {
 
   console.log(Object.keys(req.body));
-
-  var data = {
-    action: req.body.action,
-    username: req.body.pull_request.user.login,
-    createdAt: req.body.pull_request.created_at,
-    closedAt: req.body.pull_request.closed_at,
-    title: req.body.pull_request.title
-  };
-
-  var dataArray = [];
-  jsonfile.readFile(file, function(err, obj) {
-    dataArray = obj;
-    dataArray.push(data);
-    console.log(dataArray);
-
-    jsonfile.writeFile(file, dataArray, function(err) {
+  
+  jsonfile.writeFile(rawfile, req.body, function(err) {
+    if (err) {
       console.error(err);
-      res.end();
-    });
+    }
+    else {
+      
+      var data = {
+        action:       req.body.action,
+        username:     req.body.pull_request.user.login,
+        userAvatar:   req.body.pull_request.user.avatar_url,
+        userRepoUrl:  req.body.pull_request.url,
+        createdAt:    req.body.pull_request.created_at,
+        closedAt:     req.body.pull_request.closed_at,
+        title:        req.body.pull_request.title
+      };
+
+      var dataArray = [];
+      jsonfile.readFile(file, function(err, obj) {
+        dataArray = obj;
+        dataArray.push(data);
+        console.log(dataArray);
+    
+        jsonfile.writeFile(file, dataArray, function(err) {
+          console.error(err);
+          res.end();
+        });
+        
+      });
+
+    }
     
   });
 
