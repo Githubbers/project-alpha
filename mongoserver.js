@@ -1,12 +1,14 @@
-console.log("running");
 var express = require('express');
 var url = require('url');
 var http = require('http');
 var request = require('request');
-var app = express();
 var bodyParser = require("body-parser");
 var jsonfile = require('jsonfile');
 var mongoose = require('mongoose');
+
+var app = express();
+
+app.use(bodyParser.json());
 
 mongoose.connect('mongodb://' + process.env.IP + '/data', function(err, res) {
   console.log(err);
@@ -14,7 +16,7 @@ mongoose.connect('mongodb://' + process.env.IP + '/data', function(err, res) {
 
 var db = mongoose.connection;
 
-app.use(bodyParser.json());
+
 
 var pullSchema = new mongoose.Schema({..}, {strict: false});
 
