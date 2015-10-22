@@ -13,8 +13,6 @@ var mongoose = require('mongoose');
 // app.use(bodyParser.json());
 
 // app.post('/', function(req, res) {
-
-//   console.log(Object.keys(req.body));
   
 //   jsonfile.writeFile(rawfile, req.body, function(err) {
 //     if (err) {
@@ -65,7 +63,7 @@ var mongoose = require('mongoose');
 
 var pullRequests = require('./routes/pullRequests_routes');
 
-app.use('/pullRequests', pullRequests);
+app.use('/api/pullRequests', pullRequests);
 
 var server = app.listen(process.env.PORT, process.env.IP, function() {
   var host = server.address().address;
