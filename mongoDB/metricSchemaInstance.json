@@ -1,9 +1,0 @@
-{
-    "created_at": "string",
-    "updated_at": "string",
-    "closed_at": "string",
-    "baseRepoId": "number",
-    "baseRepoName": "string",
-    "userId": "number",
-    "userName": "number"
-}
