@@ -1,0 +1,45 @@
+MySQL Database githubbers
+
+TABLES
+
+CREATE TABLE pullRequests(
+id INT NOT NULL PRIMARY KEY,
+title VARCHAR(100) NULL,
+baseUserId INT NOT NULL,
+baseRepoId INT NOT NULL,
+baseBranch VARCHAR(50) NOT NULL,
+headUserId INT NOT NULL,
+headRepoId INT NOT NULL,
+headBranch VARCHAR(50) NOT NULL,
+createdAt TIMESTAMP NOT NULL,
+closedAt TIMESTAMP NULL,
+status ENUM('open', 'closed') NOT NULL);
+
+                
+CREATE TABLE pullEvents(
+id INT NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+pullRequestId INT NOT NULL,
+action VARCHAR(30) NOT NULL,
+time TIMESTAMP);
+
+      
+CREATE TABLE comments(
+id INT NOT NULL PRIMARY KEY,
+pullRequestId INT NOT NULL,
+type ENUM('pull', 'issue') NOT NULL,
+content TEXT);
+
+
+CREATE TABLE users(
+id INT NOT NULL PRIMARY KEY,
+name VARCHAR(100) NOT NULL,
+profileUrl VARCHAR(255) NOT NULL,
+avatarUrl VARCHAR(255) NOT NULL,
+cohort INT UNSIGNED NULL,
+type VARCHAR(30) NOT NULL);
+
+
+CREATE TABLE repositories(
+id INT NOT NULL PRIMARY KEY,
+userId INT NOT NULL);
+        

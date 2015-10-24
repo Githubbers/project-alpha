@@ -7,63 +7,24 @@ var bodyParser = require("body-parser");
 var jsonfile = require('jsonfile');
 var mongoose = require('mongoose');
 
-// var file = 'data.json';
-// var rawfile = 'rawData.json';
+app.use(bodyParser.json());
 
-// app.use(bodyParser.json());
+var file = './issue_samples.json';
 
-// app.post('/', function(req, res) {
-  
-//   jsonfile.writeFile(rawfile, req.body, function(err) {
-//     if (err) {
-//       console.error(err);
-//     }
-//     else {
-      
-//       var data = {
-//         action:       req.body.action,
-//         username:     req.body.pull_request.user.login,
-//         userAvatar:   req.body.pull_request.user.avatar_url,
-//         userRepoUrl:  req.body.pull_request.url,
-//         createdAt:    req.body.pull_request.created_at,
-//         closedAt:     req.body.pull_request.closed_at,
-//         title:        req.body.pull_request.title
-//       };
+app.post('/api/comments', function(req, res) {
 
-//       var dataArray = [];
-//       jsonfile.readFile(file, function(err, obj) {
-//         dataArray = obj;
-//         dataArray.push(data);
-//         console.log(dataArray);
-    
-//         jsonfile.writeFile(file, dataArray, function(err) {
-//           console.error(err);
-//           res.end();
-//         });
-        
-//       });
+  jsonfile.readFile(file, function(err, arr) {
+    arr.push(req);
 
-//     }
-    
-//   });
+    jsonfile.writeFile(file, arr, function(err) {
+      console.error(err);
+      res.end();
+    });
 
-// });
+  });
 
 
-
-// var dataArray = [];
-// jsonfile.readFile(file, function(err, obj) {
-//   dataArray = obj;
-//   console.log("inside");
-//   console.log(dataArray);
-// });
-
-// console.log("outside");
-// console.log(dataArray);
-
-var pullRequests = require('./routes/pullRequests_routes');
-
-app.use('/api/pullRequests', pullRequests);
+});
 
 var server = app.listen(process.env.PORT, process.env.IP, function() {
   var host = server.address().address;

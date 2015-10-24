@@ -1,4 +1,4 @@
-var documents = require('./rawData.js')
+var documents = require('./pull_api_samples.js');
 var MongoClient = require('mongodb').MongoClient;
 
 MongoClient.connect('mongodb://' + process.env.IP + '/githubWebHooks', function(err, db) {
