@@ -11,16 +11,17 @@ baseBranch VARCHAR(50) NOT NULL,
 headUserId INT NOT NULL,
 headRepoId INT NOT NULL,
 headBranch VARCHAR(50) NOT NULL,
-createdAt TIMESTAMP NOT NULL,
-closedAt TIMESTAMP NULL,
+createdAt VARCHAR(30) NOT NULL,
+closedAt VARCHAR(30) NULL,
 status ENUM('open', 'closed') NOT NULL);
 
                 
 CREATE TABLE pullEvents(
-id INT NOT NULL UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+userId INT NOT NULL,
 pullRequestId INT NOT NULL,
 action VARCHAR(30) NOT NULL,
-time TIMESTAMP);
+time VARCHAR(30));
 
       
 CREATE TABLE comments(

@@ -1,0 +1,6 @@
+Pull Request :
+for opened, closed, reopened, synchronize Events.
+
+Issue comment :
+for comments on pull requests
+*No webhook is triggerd when a comment is deleted*
