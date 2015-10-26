@@ -28,19 +28,19 @@ module.exports = {
                                 if (err) {
                                     console.error(err);
                                 }
-                                else {
-                                    console.log("forkee hook inserted to MongoDb");
-                                }
-                        
+                            
+                                console.log("forkee hook inserted to MongoDb");
+                                db.close();
+                                
                             });
 
                         }
                         else {
-                            console.log("This forkee is not from a member. Not inserting it.")
+                            console.log("This forkee is not from a member. Not inserting it.");
                         }
                         db.close();
 
-                    })
+                    });
  
                 }
                 
