@@ -19,7 +19,7 @@ createdAt       .pull_request.created_at
 updatedAt       .pull_request.updated_at
 closedAt        .pull_request.closed_at
 
-comment :
+comments :
 
 id              .comment.id
 repoId          .repository.id

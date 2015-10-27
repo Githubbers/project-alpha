@@ -15,7 +15,7 @@ createdAt VARCHAR(30) NOT NULL,
 closedAt VARCHAR(30) NULL,
 status ENUM('open', 'closed') NOT NULL);
 
-                
+
 CREATE TABLE pullEvents(
 id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 userId INT NOT NULL,
@@ -23,17 +23,24 @@ pullRequestId INT NOT NULL,
 action VARCHAR(30) NOT NULL,
 time VARCHAR(30));
 
-      
+
+CREATE TABLE forkees(
+id INT NOT NULL,
+userId INT NOT NULL,
+repoId INT NOT NULL,
+createdAt VARCHAR(30));
+
 CREATE TABLE comments(
 id INT NOT NULL PRIMARY KEY,
+senderId INT NOT NULL,
 pullRequestId INT NOT NULL,
-type ENUM('pull', 'issue') NOT NULL,
 content TEXT);
 
 
-CREATE TABLE users(
+CREATE TABLE members(
 id INT NOT NULL PRIMARY KEY,
-name VARCHAR(100) NOT NULL,
+loginName VARCHAR(100) NOT NULL,
+fullName VARCHAR(100) NOT NULL,
 profileUrl VARCHAR(255) NOT NULL,
 avatarUrl VARCHAR(255) NOT NULL,
 cohort INT UNSIGNED NULL,
@@ -42,5 +49,5 @@ type VARCHAR(30) NOT NULL);
 
 CREATE TABLE repositories(
 id INT NOT NULL PRIMARY KEY,
-userId INT NOT NULL);
+name VARCHAR(100) NOT NULL);
         

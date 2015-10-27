@@ -1,0 +1,38 @@
+forkees
+
+id :        .forkee.id
+repoId :    .repository.id
+userId :    .sender.id
+createdAt : .forkee.created_at
+
+
+
+pullUpdates
+
+id :            auto_increment
+userId :        .sender.id
+pullRequestId : .pull_request.id
+action :        .action
+time :          .updated_at
+
+
+
+pullRequests
+
+id :            .pull_request.id
+title :         .pull_request.title
+baseUserId :    .pull_request.base.user.id
+baseRepoId :    .pull_reuqest.base.repo.id
+baseBranch :    .pull_request.base.ref
+headUserId :    .pull_request.head.user.id
+headRepoId :    .pull_request.head.repo.id
+headBranch :    .pull_request.head.repo.name
+createdAt :     .pull_request.created_at
+closedAt :      .pull_request.closed_at
+status :        *to be determined
+
+
+comments
+
+id
+repoId

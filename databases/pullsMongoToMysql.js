@@ -1,24 +1,34 @@
-var sampleAPIs = require('./pull_requests_sample.json');
-
 var mysql = require('mysql');
 var Promise = require('bluebird');
 Promise.promisifyAll(mysql);
 Promise.promisifyAll(require("mysql/lib/Connection").prototype);
 Promise.promisifyAll(require("mysql/lib/Pool").prototype);
 
-function insertToMysql(inputArray, count) {
+var MongoClient = require('mongodb').MongoClient;
+
+var connection = mysql.createConnection({
+    host: process.env.IP,
+    user: process.env.C9_USER,
+    password: '',
+    database: 'githubbers'
+});
+
+MongoClient.connect('mongodb://' + process.env.IP + '/decodemtl', function(err, db) {
+    
+    db.collection("pullRequests").find().toArray( function(err, docs) {
+        
+        insertToMysql(docs, db);
+        
+    });
+
+});
+
+function insertToMysql(inputArray, db, count) {
     
     if (!count) {
-        var count=0;
+        count=0;
     }
     var reqBody = inputArray[count];
-
-    var connection = mysql.createConnection({
-        host: process.env.IP,
-        user: process.env.C9_USER,
-        password: '',
-        database: 'githubbers'
-    });
     
     var queryStr = 'INSERT INTO pullEvents '
     +'(userId, pullRequestId, action, time) '
@@ -33,7 +43,7 @@ function insertToMysql(inputArray, count) {
         // Inserting datas into TABLE pullRequest the following:
         // If pullRequest already exists, update it
         // If pullRequest doesn't exist, create it
-        console.log('2. Looking for existence of pullRequest '+reqBody.pull_request.id)
+        console.log('2. Looking for existence of pullRequest '+reqBody.pull_request.id);
         return connection.queryAsync("SELECT id FROM pullRequests WHERE id=" + reqBody.pull_request.id + ';');
 
     })
@@ -91,16 +101,15 @@ function insertToMysql(inputArray, count) {
     })
     .spread( function(rows, fields) {
         
-        connection.end();
+        
         if (count < inputArray.length-1) {
-            insertToMysql(inputArray, count+1);
+            insertToMysql(inputArray, db, count+1);
         }
         else {
             console.log("all done!");
+            connection.end();
+            db.close();
         }
         
     });
 }
-
-
-insertToMysql(sampleAPIs);

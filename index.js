@@ -58,7 +58,7 @@ function handleWebhook(reqBody) {
    }
    else if (reqBody.hasOwnProperty("forkee")) {
       console.log("\n"+reqBody.forkee.owner.login+" forked "+reqBody.repository.name+" repository.");
-      forkeesToMongo.insert(reqBody)
+      forkeesToMongo.insert(reqBody);
    }
    else {
       console.log("This web hook is non relevant. Not inserting it.");
