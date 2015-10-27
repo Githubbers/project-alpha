@@ -1,0 +1,29 @@
+pull_request : 
+
+id              .pull_request.id
+action          .action
+title           .pull_request.title
+initialComment  .pull_request.body
+baseName        .pull_request.base.login
+baseId          .pull_request.base.user.id
+baseRepoName    .pull_reuqest.base.repo.name
+baseRepoId      .pull_reuqest.base.repo.id
+baseBranch      .pull_request.base.ref
+headName        .pull_request.head.login
+headUserId      .pull_request.head.user.id
+headRepoId      .pull_request.head.repo.id
+headBranch      .pull_request.head.repo.name
+requesterName   .pull_request.user.login
+requesterId     .pull_request.user.id
+createdAt       .pull_request.created_at
+updatedAt       .pull_request.updated_at
+closedAt        .pull_request.closed_at
+
+comments :
+
+id              .comment.id
+repoId          .repository.id
+pullRequestId   .issue.pull_request.url *Id has to be fetched from an API.
+senderId        .sender.id
+content         .comment.body
+time            .issue.updated_at

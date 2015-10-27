@@ -6,52 +6,62 @@ var app = express();
 var bodyParser = require("body-parser");
 var jsonfile = require('jsonfile');
 
-var file = 'data.json';
-
 app.use(bodyParser.json());
 
-app.post('/', function(req, res) {
+var pullRequestsToMongo = require('./databases/pullRequestsToMongo.js');
+var commentsToMongo = require('./databases/commentsToMongo.js');
+var forkeesToMongo = require('./databases/forkeesToMongo.js');
 
-  console.log(Object.keys(req.body));
+// app.post('/api/pullRequests/', function(req, res) {
 
-  var data = {
-    action: req.body.action,
-    username: req.body.pull_request.user.login,
-    createdAt: req.body.pull_request.created_at,
-    closedAt: req.body.pull_request.closed_at,
-    title: req.body.pull_request.title
-  };
+//    handleWebhook(req.body);
+//    res.end();
 
-  var dataArray = [];
-  jsonfile.readFile(file, function(err, obj) {
-    dataArray = obj;
-    dataArray.push(data);
-    console.log(dataArray);
-
-    jsonfile.writeFile(file, dataArray, function(err) {
-      console.error(err);
-      res.end();
-    });
-    
-  });
-
-});
-
-
-
-// var dataArray = [];
-// jsonfile.readFile(file, function(err, obj) {
-//   dataArray = obj;
-//   console.log("inside");
-//   console.log(dataArray);
 // });
 
-// console.log("outside");
-// console.log(dataArray);
+// app.post('/api/comments/', function(req, res) {
+
+//    handleWebhook(req.body);
+//    res.end();
+
+// });
+
+// app.post('/api/allwebhooks/', function(req, res) {
+
+//    handleWebhook(req.body);
+//    res.end();
+
+// });
+
+app.post('/decodemtl', function(req, res) {
+   handleWebhook(req.body);
+   res.end();
+});
 
 var server = app.listen(process.env.PORT, process.env.IP, function() {
-  var host = server.address().address;
-  var port = server.address().port;
+   var host = server.address().address;
+   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+   console.log('Example app listening at http://%s:%s', host, port);
 });
+
+
+function handleWebhook(reqBody) {
+
+   if (reqBody.hasOwnProperty("pull_request")) {
+      console.log("\n"+reqBody.sender.login+" "+reqBody.action+" a pull request");
+      pullRequestsToMongo.insert(reqBody);
+   }
+   else if (reqBody.hasOwnProperty("comment")) {
+      console.log("\n"+reqBody.comment.user.login+" commented on "+reqBody.issue.title);
+      commentsToMongo.insert(reqBody);
+   }
+   else if (reqBody.hasOwnProperty("forkee")) {
+      console.log("\n"+reqBody.forkee.owner.login+" forked "+reqBody.repository.name+" repository.");
+      forkeesToMongo.insert(reqBody);
+   }
+   else {
+      console.log("This web hook is non relevant. Not inserting it.");
+   }
+
+}
